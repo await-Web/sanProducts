@@ -1,0 +1,62 @@
+	view,text,swiper,swiper-item,input,textarea{
+		box-sizing: border-box;
+	}
+	image{
+		width: 100rpx;
+		height: 100rpx;
+	}
+	.safe-area-bottom{
+	  width: 100%;
+	  height: env(safe-area-inset-bottom);
+	}
+	/* 阴影 */
+	.shadow{
+		box-shadow: 0 1rpx 4rpx -4rpx rgba(0, 0, 0, .16), 0 6rpx 12rpx rgba(0, 0, 0, .12), 0 4rpx 16rpx 4rpx rgba(0, 0, 0, .09);
+	}
+	
+	.card{
+		justify-content: space-between;
+		flex-wrap: wrap;
+		.card-item{
+			width: 48%;
+			height: 200rpx;
+			background-color: #fff;
+			border-radius: 20rpx;
+			box-shadow: 1rpx 1rpx 2rpx 1rpx rgba(0, 0, 0, 0.1);
+			margin-bottom: 20rpx;
+			
+			.card-item-r{
+				height: 100%;
+				.title{
+					height: 60rpx;
+					font-size: 34rpx;
+				}
+				.content{
+					color: #999999;
+					font-size: 24rpx;
+				}
+			}
+			.card-item-l{
+				height: 100%;
+				flex: 1;
+				text-align: end;
+				.icon-sty{
+					font-size: 80rpx;
+					 color: aqua;
+				}
+			}
+		}
+	}
+	.com-addBtn {
+		width: 80rpx;
+		height: 80rpx;
+		border-radius: 50%;
+		background-color: rgba(184, 64, 172, 0.7);
+		position: fixed;
+		bottom: 180rpx;
+		right: 18rpx;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 10;
+	}

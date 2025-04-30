@@ -17,7 +17,7 @@
 				<view class="scan-section">
 					<view class="scan-button" @click="startScan">
 						<text class="iconfont icon-scan"></text>
-						<text class="scan-text">扫描商品</text>
+						<text class="scan-text u-m-t-20">扫描商品</text>
 					</view>
 				</view>
 
@@ -63,10 +63,7 @@
 				</view>
 			</uni-popup>
 		</view>
-
-
 	</view>
-
 </template>
 
 <script>

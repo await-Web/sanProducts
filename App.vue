@@ -53,4 +53,8 @@
 	scroll-view {
 		box-sizing: border-box;
 	}
+
+	@import "@/uni_modules/vk-uview-ui/index.scss";
+	@import "@/assets/scss/common-style.scss";
+	@import "@/assets/iconfont/iconfont.css";
 </style>
