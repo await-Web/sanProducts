@@ -1,0 +1,7 @@
+{
+  "name": "delUserGoodsInfo",
+  "dependencies": {},
+  "extensions": {
+    "uni-cloud-jql": {}
+  }
+}

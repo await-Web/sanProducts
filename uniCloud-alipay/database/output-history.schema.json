@@ -1,0 +1,85 @@
+{
+	"bsonType": "object",
+	"required": ["user_id","items", "total_quantity", "total_amount", "time_slot", "date", "month"],
+	"permission": {
+		"read": "doc.user_id == auth.uid",
+		"create": "auth.uid != null",
+		"update": "doc.user_id == auth.uid",
+		"delete": "doc.user_id == auth.uid"
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"user_id": {
+			"bsonType": "string",
+			"description": "用户ID",
+			"foreignKey": "goods-database-info._id"
+		},
+		"items": {
+			"bsonType": "array",
+			"description": "出库商品列表",
+			"items": {
+				"bsonType": "object",
+				"required": ["goods_id", "goods_name", "goods_quantity", "goods_price"],
+				"properties": {
+					"goods_id": {
+						"bsonType": "string",
+						"description": "商品ID"
+					},
+					"goods_name": {
+						"bsonType": "string",
+						"description": "商品名称"
+					},
+					"goods_quantity": {
+						"bsonType": "int",
+						"description": "出库数量",
+						"minimum": 1
+					},
+					"goods_price": {
+						"bsonType": "number",
+						"description": "商品单价",
+						"minimum": 0
+					}
+				}
+			}
+		},
+		"total_quantity": {
+			"bsonType": "int",
+			"description": "本批次总数量",
+			"minimum": 1
+		},
+		"total_amount": {
+			"bsonType": "double",
+			"description": "本批次总金额",
+			"minimum": 0
+		}, 
+		"total_profit": {
+			"bsonType": "double",
+			"description": "本批次总利润",
+			"minimum": 0
+		},
+		"time_slot": {
+			"bsonType": "string",
+			"description": "出库时间段",
+			"trim": "both"
+		},
+		"date": {
+			"bsonType": "string",
+			"description": "出库日期，格式：YYYY-MM-DD",
+			"trim": "both"
+		},
+		"month": {
+			"bsonType": "string",
+			"description": "出库月份，格式：YYYY-MM",
+			"trim": "both"
+		},
+		"create_time": {
+			"bsonType": "timestamp",
+			"description": "创建时间",
+			"forceDefaultValue": {
+				"$env": "now"
+			}
+		}
+	}
+}

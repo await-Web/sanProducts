@@ -1,0 +1,87 @@
+{
+	"bsonType": "object",
+	"required": [
+		"user_id",
+		"goods_name",
+		"goods_price"
+	],
+	"permission": {
+		"read": "doc.user_id == auth.uid",
+		"create": "auth.uid != null",
+		"update": "doc.user_id == auth.uid",
+		"delete": "doc.user_id == auth.uid"
+	},
+	"properties": {
+		"_id": {
+			"description": "存储文档 ID（商品 ID），系统自动生成"
+		},
+		"user_id" :{
+			"bsonType": "string",
+			"description": "用户 ID",
+			"title": "用户 ID",
+			"foreign_key": "uni-id-users._id",
+			"defaultValue":{
+				"$env":"uid"
+			}
+		},
+		"goods_sn": {
+			"bsonType": "string",
+			"description": "商品的条形码",
+			"title": "条形码",
+			"trim": "both"
+		},
+		"goods_name": {
+			"bsonType": "string",
+			"description": "商品名称",
+			"title": "名称",
+			"trim": "both"
+		},
+		"goods_num": {
+			"bsonType": "int",
+			"description": "商品数量",
+			"title": "数量",
+			"trim": "both",
+			"minimum": 0 
+		},
+		"goods_price":{
+			"bsonType": "double",
+			"description": "商品价格",
+			"trim": "both",
+			"title": "价格",
+			"minimum": 0 
+		},
+		"goods_cost":{
+			"bsonType": "double",
+			"description": "商品成本",
+			"trim": "both",
+			"title": "价格",
+			"minimum": 0 
+		},
+		"goods_threshold":{
+			"bsonType": "int",
+			"description": "商品缺货提醒阈值",
+			"title": "商品缺货提醒阈值",
+			"trim": "both",
+			"minimum": 0 
+		},
+		"goods_notes": {
+			"bsonType": "string",
+			"description": "商品备注",
+			"title": "商品备注",
+			"trim": "both"
+		},
+		"goods_pic": {
+			"bsonType": "object",
+			"description": "商品图片",
+			"title": "商品图片url和fileID"
+		},
+		"last_modify_date": {
+			"bsonType": "timestamp",
+			"description": "最后修改时间",
+			"defaultValue": {
+				"$env": "now"
+			}
+		}
+	},
+	"version": "0.0.1"
+}

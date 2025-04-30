@@ -1,0 +1,9 @@
+{
+  "name": "sendMsg",
+  "dependencies": {
+    "self-uid": "file:../common/self-uid"
+  },
+  "extensions": {
+    "uni-cloud-jql": {}
+  }
+}

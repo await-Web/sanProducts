@@ -1,0 +1,32 @@
+{
+	"bsonType": "object",
+	"required": ["title", "content"],
+	"permission": {
+		"read": "true",
+		"create": "'admin' in auth.role",
+		"update": "'admin' in auth.role",
+		"delete": "'admin' in auth.role"
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"title": {
+			"bsonType": "string",
+			"description": "消息标题",
+			"trim": "both"
+		},
+		"content": {
+			"bsonType": "string",
+			"description": "消息内容",
+			"trim": "both"
+		},
+		"create_date": {
+			"bsonType": "timestamp",
+			"description": "创建时间",
+			"forceDefaultValue": {
+				"$env": "now"
+			}
+		}
+	}
+}
