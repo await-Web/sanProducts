@@ -1,8 +1,14 @@
 {
 	"pages": [{
-			"path": "pages/home/home",
+			"path": "pages/index/home",
 			"style": {
 				"navigationBarTitleText": "首页"
+			}
+		},
+		{
+			"path": "pages/index/list",
+			"style": {
+				"navigationBarTitleText": "商品"
 			}
 		},
 		{
@@ -12,13 +18,13 @@
 			}
 		},
 		{
-			"path": "pages/complate/complate",
+			"path": "pages/index/complate",
 			"style": {
 				"navigationBarTitleText": "结算"
 			}
 		},
 		{
-			"path": "pages/my/my",
+			"path": "pages/index/my",
 			"style": {
 				"navigationBarTitleText": "我的"
 			}
@@ -46,31 +52,23 @@
 				"navigationBarTitleText": "修改密码"
 			}
 		},
+
 		{
-			"path": "pages/list/list",
+			"path": "uni_modules/uni-id-pages/pages/common/PrivacyPolicy/PrivacyPolicy",
 			"style": {
-				"navigationBarTitleText": "商品"
+				"navigationBarTitleText": "用户服务协议"
 			}
 		},
 		{
-			"path" : "uni_modules/uni-id-pages/pages/common/PrivacyPolicy/PrivacyPolicy",
-			"style" : 
-			{
-				"navigationBarTitleText" : "用户服务协议"
+			"path": "uni_modules/uni-id-pages/pages/common/UserAgreement/UserAgreement",
+			"style": {
+				"navigationBarTitleText": "隐私政策条款"
 			}
 		},
 		{
-			"path" : "uni_modules/uni-id-pages/pages/common/UserAgreement/UserAgreement",
-			"style" : 
-			{
-				"navigationBarTitleText" : "隐私政策条款"
-			}
-		},
-		{
-			"path" : "uni_modules/uni-id-pages/pages/userinfo/deactivate/deactivate",
-			"style" : 
-			{
-				"navigationBarTitleText" : "注销账号"
+			"path": "uni_modules/uni-id-pages/pages/userinfo/deactivate/deactivate",
+			"style": {
+				"navigationBarTitleText": "注销账号"
 			}
 		}
 	],
@@ -85,24 +83,24 @@
 		"selectedColor": "#28B389",
 		"list": [{
 				"text": "首页",
-				"pagePath": "pages/home/home",
+				"pagePath": "pages/index/home",
 				"iconPath": "static/tabBar/scan.png",
 				"selectedIconPath": "static/tabBar/scan-active.png"
 			}, {
 				"text": "结算",
-				"pagePath": "pages/complate/complate",
+				"pagePath": "pages/index/complate",
 				"iconPath": "static/tabBar/checkout.png",
 				"selectedIconPath": "static/tabBar/checkout-active.png"
 			},
 			{
 				"text": "商品",
-				"pagePath": "pages/list/list",
+				"pagePath": "pages/index/list",
 				"iconPath": "static/tabBar/data.png",
 				"selectedIconPath": "/static/tabBar/data-active.png"
 			},
 			{
 				"text": "我的",
-				"pagePath": "pages/my/my",
+				"pagePath": "pages/index/my",
 				"iconPath": "static/tabBar/my.png",
 				"selectedIconPath": "static/tabBar/my-active.png"
 			}
@@ -124,25 +122,25 @@
 				"navigationBarTitleText": "导入说明",
 				"enablePullDownRefresh": false
 			}
-		},{
+		}, {
 			"path": "analysis/analysis",
 			"style": {
 				"navigationBarTitleText": "数据分析",
 				"enablePullDownRefresh": false
 			}
-		},{
+		}, {
 			"path": "record/record",
 			"style": {
 				"navigationBarTitleText": "导出记录",
 				"enablePullDownRefresh": false
 			}
-		},{
+		}, {
 			"path": "usermsg/usermsg",
 			"style": {
 				"navigationBarTitleText": "我的消息",
 				"enablePullDownRefresh": false
 			}
-		},{
+		}, {
 			"path": "pay/pay",
 			"style": {
 				"navigationBarTitleText": "支持作者",
