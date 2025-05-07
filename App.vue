@@ -46,14 +46,7 @@
 	}
 </script>
 
-<style>
-	/*每个页面公共css */
-	view,
-	text,
-	scroll-view {
-		box-sizing: border-box;
-	}
-
+<style lang="scss">
 	@import "@/uni_modules/vk-uview-ui/index.scss";
 	@import "@/assets/scss/common-style.scss";
 	@import "@/assets/iconfont/iconfont.css";

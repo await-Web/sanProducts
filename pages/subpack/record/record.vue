@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<ad-custom unit-id="adunit-91dadbe75146ce18"></ad-custom>
+		<!-- <ad-custom unit-id="adunit-91dadbe75146ce18"></ad-custom> -->
 		<view class="record-container">
 			<!-- 日期选择器 -->
 			<view class="date-picker">
@@ -10,7 +10,8 @@
 			<!-- 记录列表 -->
 			<view class="record-list">
 				<template v-if="records.length > 0">
-					<view v-for="(record, index) in records" :key="record._id" class="record-item" @click="showDetail(record)">
+					<view v-for="(record, index) in records" :key="record._id" class="record-item"
+						@click="showDetail(record)">
 						<view class="record-summary">
 							<text class="time">{{formatTime(record.create_time)}}</text>
 							<text class="amount">¥{{record.total_amount}}</text>
@@ -31,10 +32,11 @@
 				<view class="page-info">
 					<text>第{{pagination.page}}页，共{{pagination.totalPages}}页</text>
 				</view>
-				
+
 				<view class="page-controls">
 					<button :disabled="pagination.page <= 1" @click="prevPage" class="page-btn">上一页</button>
-					<button :disabled="pagination.page >= pagination.totalPages" @click="nextPage" class="page-btn">下一页</button>
+					<button :disabled="pagination.page >= pagination.totalPages" @click="nextPage"
+						class="page-btn">下一页</button>
 				</view>
 			</view>
 
@@ -50,12 +52,13 @@
 							<view class="detail-time">出库时间：{{formatTime(selectedRecord.create_time)}}</view>
 							<scroll-view scroll-y :style="{height:'250rpx'}">
 								<view class="detail-items">
-								<view v-for="(item, idx) in selectedRecord.items" :key="item.goods_id" class="item-row">
-									<text class="item-name">{{item.goods_name}}</text>
-									<text class="item-quantity">×{{item.goods_quantity}}</text>
-									<text class="item-price">¥{{item.goods_price}}</text>
+									<view v-for="(item, idx) in selectedRecord.items" :key="item.goods_id"
+										class="item-row">
+										<text class="item-name">{{item.goods_name}}</text>
+										<text class="item-quantity">×{{item.goods_quantity}}</text>
+										<text class="item-price">¥{{item.goods_price}}</text>
+									</view>
 								</view>
-							</view>
 							</scroll-view>
 							<view class="detail-total">
 								<view>
@@ -64,7 +67,8 @@
 								</view>
 								<view>
 									<text>总利润：</text>
-									<text class="total-amount">¥{{selectedRecord.total_profit ? selectedRecord.total_profit.toFixed(2):0}}</text>
+									<text
+										class="total-amount">¥{{selectedRecord.total_profit ? selectedRecord.total_profit.toFixed(2):0}}</text>
 								</view>
 								<view>
 									<text>总金额：</text>
@@ -80,7 +84,7 @@
 </template>
 
 <script>
-const outputHistoryObj = uniCloud.importObject('outputHistoryObj2')
+	const outputHistoryObj = uniCloud.importObject('outputHistoryObj2')
 	export default {
 		data() {
 			return {
@@ -103,10 +107,10 @@ const outputHistoryObj = uniCloud.importObject('outputHistoryObj2')
 			async loadRecords() {
 				try {
 					const result = await outputHistoryObj.getOutputRecords({
-								date: this.selectedDate,
-								page: this.pagination.page,
-								size: this.pagination.size
-							})
+						date: this.selectedDate,
+						page: this.pagination.page,
+						size: this.pagination.size
+					})
 
 					if (result.success) {
 						this.records = result.data.list
@@ -173,239 +177,240 @@ const outputHistoryObj = uniCloud.importObject('outputHistoryObj2')
 </script>
 
 <style lang="scss" scoped>
-.record-container {
-	padding: 20rpx;
-	background-color: #f5f5f5;
-}
-
-.date-picker {
-	background-color: #fff;
-	padding: 30rpx;
-	border-radius: 16rpx;
-	margin: 20rpx;
-	box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
-}
-
-.record-list {
-	margin-bottom: 20rpx;
-}
-
-.record-item {
-	background-color: #fff;
-	padding: 30rpx;
-	border-radius: 16rpx;
-	margin: 0 20rpx 20rpx;
-	box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
-	transition: all 0.3s ease;
-
-	&:active {
-		transform: scale(0.98);
-		background-color: #f8f8f8;
-	}
-}
-
-.record-summary {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 10rpx;
-
-	.time {
-		color: #666;
-		font-size: 28rpx;
+	.record-container {
+		padding: 20rpx;
+		background-color: #f5f5f5;
 	}
 
-	.amount {
-		color: #ff6b6b;
-		font-size: 32rpx;
-		font-weight: bold;
+	.date-picker {
+		background-color: #fff;
+		padding: 30rpx;
+		border-radius: 16rpx;
+		margin: 20rpx;
+		box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
 	}
-}
 
-.record-info {
-	.quantity {
-		color: #999;
-		font-size: 26rpx;
-	}
-}
-
-.empty-state {
-	padding: 100rpx 0;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-
-	.empty-image {
-		width: 200rpx;
-		height: 200rpx;
+	.record-list {
 		margin-bottom: 20rpx;
 	}
 
-	.empty-text {
-		color: #999;
-		font-size: 28rpx;
-	}
-}
+	.record-item {
+		background-color: #fff;
+		padding: 30rpx;
+		border-radius: 16rpx;
+		margin: 0 20rpx 20rpx;
+		box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
+		transition: all 0.3s ease;
 
-.pagination {
-	background-color: #fff;
-	padding: 30rpx;
-	border-radius: 16rpx;
-	text-align: center;
-	box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
-	margin: 20rpx;
-
-	.page-info {
-		color: #666;
-		font-size: 28rpx;
-		margin-bottom: 30rpx;
+		&:active {
+			transform: scale(0.98);
+			background-color: #f8f8f8;
+		}
 	}
 
-	.page-input {
+	.record-summary {
 		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 10rpx;
+
+		.time {
+			color: #666;
+			font-size: 28rpx;
+		}
+
+		.amount {
+			color: #ff6b6b;
+			font-size: 32rpx;
+			font-weight: bold;
+		}
+	}
+
+	.record-info {
+		.quantity {
+			color: #999;
+			font-size: 26rpx;
+		}
+	}
+
+	.empty-state {
+		padding: 100rpx 0;
+		display: flex;
+		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		margin-bottom: 20rpx;
-		gap: 20rpx;
-		
-		input {
-			width: 120rpx;
-			height: 60rpx;
-			border: 2rpx solid #ddd;
-			border-radius: 8rpx;
-			text-align: center;
-			font-size: 28rpx;
-			padding: 0 10rpx;
+
+		.empty-image {
+			width: 200rpx;
+			height: 200rpx;
+			margin-bottom: 20rpx;
 		}
-		
-		.go-btn {
-			padding: 0 30rpx;
-			height: 60rpx;
-			line-height: 60rpx;
-			background-color: #4CAF50;
-			color: #fff;
-			border-radius: 8rpx;
-			font-size: 26rpx;
-			transition: all 0.3s ease;
-			
-			&:active {
-				transform: scale(0.95);
-			}
+
+		.empty-text {
+			color: #999;
+			font-size: 28rpx;
 		}
 	}
 
-	.page-controls {
-		display: flex;
-		justify-content: center;
-		gap: 30rpx;
+	.pagination {
+		background-color: #fff;
+		padding: 30rpx;
+		border-radius: 16rpx;
+		text-align: center;
+		box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
+		margin: 20rpx;
 
-		.page-btn {
+		.page-info {
+			color: #666;
 			font-size: 28rpx;
-			padding: 15rpx 40rpx;
-			background-color: #2196F3;
-			color: #fff;
-			border-radius: 8rpx;
-			transition: all 0.3s ease;
+			margin-bottom: 30rpx;
+		}
 
-			&:active {
-				transform: scale(0.95);
+		.page-input {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-bottom: 20rpx;
+			gap: 20rpx;
+
+			input {
+				width: 120rpx;
+				height: 60rpx;
+				border: 2rpx solid #ddd;
+				border-radius: 8rpx;
+				text-align: center;
+				font-size: 28rpx;
+				padding: 0 10rpx;
 			}
 
-			&:disabled {
-				background-color: #E0E0E0;
-				color: #9E9E9E;
-				cursor: not-allowed;
-				transform: none;
-				
+			.go-btn {
+				padding: 0 30rpx;
+				height: 60rpx;
+				line-height: 60rpx;
+				background-color: #4CAF50;
+				color: #fff;
+				border-radius: 8rpx;
+				font-size: 26rpx;
+				transition: all 0.3s ease;
+
 				&:active {
-					transform: none;
+					transform: scale(0.95);
+				}
+			}
+		}
+
+		.page-controls {
+			display: flex;
+			justify-content: center;
+			gap: 30rpx;
+
+			.page-btn {
+				font-size: 28rpx;
+				padding: 15rpx 40rpx;
+				background-color: #2196F3;
+				color: #fff;
+				border-radius: 8rpx;
+				transition: all 0.3s ease;
+
+				&:active {
+					transform: scale(0.95);
+				}
+
+				&:disabled {
 					background-color: #E0E0E0;
+					color: #9E9E9E;
+					cursor: not-allowed;
+					transform: none;
+
+					&:active {
+						transform: none;
+						background-color: #E0E0E0;
+					}
 				}
 			}
 		}
 	}
-}
 
-.detail-popup {
-	background-color: #fff;
-	border-radius: 16rpx;
-	width: 85vw;
-	box-shadow: 0 4rpx 24rpx rgba(0, 0, 0, 0.12);
+	.detail-popup {
+		background-color: #fff;
+		border-radius: 16rpx;
+		width: 85vw;
+		box-shadow: 0 4rpx 24rpx rgba(0, 0, 0, 0.12);
 
-	.detail-header {
-		padding: 30rpx;
-		border-bottom: 1rpx solid #eee;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-
-		.detail-title {
-			font-size: 32rpx;
-			font-weight: bold;
-		}
-
-		.close-btn {
-			font-size: 40rpx;
-			color: #999;
-			padding: 0 20rpx;
-		}
-	}
-
-	.detail-content {
-		max-height: 60vh;
-		padding: 22rpx;
-	}
-
-	.detail-time {
-		color: #666;
-		font-size: 28rpx;
-		margin-bottom: 20rpx;
-	}
-
-	.detail-items {
-		.item-row {
+		.detail-header {
+			padding: 30rpx;
+			border-bottom: 1rpx solid #eee;
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			padding: 20rpx 0;
-			border-bottom: 1rpx solid #eee;
 
-			.item-name {
-				flex: 1;
-				font-size: 28rpx;
-				padding-right: 20rpx;
+			.detail-title {
+				font-size: 32rpx;
+				font-weight: bold;
 			}
 
-			.item-quantity {
-				color: #666;
-				font-size: 28rpx;
-				width: 120rpx;
-				text-align: center;
+			.close-btn {
+				font-size: 40rpx;
+				color: #999;
+				padding: 0 20rpx;
 			}
+		}
 
-			.item-price {
+		.detail-content {
+			max-height: 60vh;
+			padding: 22rpx;
+		}
+
+		.detail-time {
+			color: #666;
+			font-size: 28rpx;
+			margin-bottom: 20rpx;
+		}
+
+		.detail-items {
+			.item-row {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 20rpx 0;
+				border-bottom: 1rpx solid #eee;
+
+				.item-name {
+					flex: 1;
+					font-size: 28rpx;
+					padding-right: 20rpx;
+				}
+
+				.item-quantity {
+					color: #666;
+					font-size: 28rpx;
+					width: 120rpx;
+					text-align: center;
+				}
+
+				.item-price {
+					color: #ff6b6b;
+					font-size: 28rpx;
+					width: 140rpx;
+					text-align: right;
+				}
+			}
+		}
+
+		.detail-total {
+			display: flex;
+			flex-direction: column;
+			align-items: left;
+			padding: 5rpx 0;
+			font-size: 28rpx;
+			font-weight: 600;
+
+			.total-amount {
 				color: #ff6b6b;
-				font-size: 28rpx;
-				width: 140rpx;
-				text-align: right;
+				font-size: 32rpx;
+				font-weight: bold;
+				margin-right: 20rpx;
 			}
 		}
 	}
-
-	.detail-total {
-		display: flex;
-		flex-direction: column;
-		align-items: left;
-		padding: 5rpx 0;
-		font-size: 28rpx;
-		font-weight: 600;
-		.total-amount {
-			color: #ff6b6b;
-			font-size: 32rpx;
-			font-weight: bold;
-			margin-right: 20rpx;
-		}
-	}
-}
 </style>

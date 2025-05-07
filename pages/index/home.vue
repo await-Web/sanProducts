@@ -404,8 +404,8 @@
 	}
 
 	.scan-button {
-		width: min(310rpx, 80vw);
-		height: min(310rpx, 80vw);
+		width: min(210rpx, 80vw);
+		height: min(210rpx, 80vw);
 		max-width: 80%;
 		max-height: 40vh;
 		aspect-ratio: 1;

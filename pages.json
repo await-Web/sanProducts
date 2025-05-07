@@ -74,7 +74,7 @@
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "码上识物铺",
+		"navigationBarTitleText": "扫码识别盘点录入助手",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},

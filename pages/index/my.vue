@@ -58,7 +58,7 @@
 
 
 		<!-- 广告 -->
-		<ad-custom unit-id="adunit-51de09dcce46fe1b"></ad-custom>
+		<!-- <ad-custom unit-id="adunit-51de09dcce46fe1b"></ad-custom> -->
 
 		<!-- 功能列表 -->
 		<view class="feature-list">

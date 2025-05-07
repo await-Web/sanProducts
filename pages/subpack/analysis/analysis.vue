@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<ad-custom unit-id="adunit-313f9e52ec3ed514"></ad-custom>
+		<!-- <ad-custom unit-id="adunit-313f9e52ec3ed514"></ad-custom> -->
 		<view class="analysis-container">
 			<view>
 				<view class="data-time">数据时间: {{ nowDateStr }}</view>
@@ -102,7 +102,7 @@
 				</view>
 			</view>
 		</view>
-		<ad-custom unit-id="adunit-7d155329659c9931"></ad-custom>
+		<!-- <ad-custom unit-id="adunit-7d155329659c9931"></ad-custom> -->
 	</view>
 </template>
 
@@ -124,7 +124,7 @@
 				amountDailyChartData: null,
 				quantityDailyChartData: null,
 				countMonthlyChartData: null,
-				profitMonthlyChartData:null,
+				profitMonthlyChartData: null,
 				amountMonthlyChartData: null,
 				quantityMonthlyChartData: null,
 				currentChart: 'count',
@@ -223,7 +223,7 @@
 				this.MonthlyList = resMonthly.data
 				this.DailyList = resDaily.data
 
-				console.log('DailyList',this.DailyList)
+				console.log('DailyList', this.DailyList)
 				this.formatTimeSlotChartData()
 				this.formatDailyChartData()
 				this.formatMonthlyChartData()
@@ -396,7 +396,7 @@
 
 
 			},
-			
+
 			formatDailyChartData() {
 				const now = new Date();
 				const dates = Object.keys(this.DailyList).sort((a, b) => {
@@ -429,12 +429,13 @@
 						data: dates.map(date => this.DailyList[date].total_quantity)
 					}]
 				}
-				
+
 				this.profitDailyChartData = {
 					categories,
 					series: [{
 						name: '出库利润',
-						data: dates.map(date => isNaN(this.DailyList[date].total_profit)?0:parseFloat(this.DailyList[date].total_profit))
+						data: dates.map(date => isNaN(this.DailyList[date].total_profit) ? 0 : parseFloat(this
+							.DailyList[date].total_profit))
 					}]
 				}
 			},
@@ -471,12 +472,13 @@
 						data: months.map(month => this.MonthlyList[month].total_quantity)
 					}]
 				}
-				
+
 				this.profitMonthlyChartData = {
 					categories,
 					series: [{
 						name: '出库利润',
-						data: months.map(month => isNaN(this.MonthlyList[month].total_profit)?0:parseFloat(this.MonthlyList[month].total_profit))
+						data: months.map(month => isNaN(this.MonthlyList[month].total_profit) ? 0 : parseFloat(
+							this.MonthlyList[month].total_profit))
 					}]
 				}
 			}
