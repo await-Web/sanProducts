@@ -7,6 +7,13 @@
 		}
 	},
 	"pages": [{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "工作台",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
 			"path": "pages/index/home",
 			"style": {
 				"navigationBarTitleText": "首页"
@@ -82,17 +89,17 @@
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "扫码识别盘点录入助手",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"navigationBarBackgroundColor": "#00aaff",
+		"backgroundColor": "#00aaff"
 	},
 	"tabBar": {
 		"color": "#9799a5",
 		"selectedColor": "#28B389",
 		"list": [{
-				"text": "首页",
-				"pagePath": "pages/index/home",
-				"iconPath": "static/tabBar/scan.png",
-				"selectedIconPath": "static/tabBar/scan-active.png"
+				"text": "工作台",
+				"pagePath": "pages/index/index",
+				"iconPath": "static/tabBar/index.png",
+				"selectedIconPath": "static/tabBar/indexH.png"
 			}, {
 				"text": "结算",
 				"pagePath": "pages/index/complate",
