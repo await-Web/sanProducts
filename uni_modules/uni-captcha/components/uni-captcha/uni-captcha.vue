@@ -81,7 +81,6 @@
 				uniIdCo.getImageCaptcha({
 						scene: this.scene
 					}).then(result => {
-						// console.log(result);
 						this.captchaBase64 = result.captchaBase64
 					})
 					.catch(e => {

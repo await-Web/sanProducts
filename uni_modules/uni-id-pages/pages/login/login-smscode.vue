@@ -71,8 +71,6 @@
 				}).catch(e => {
 					if (e.errCode == 'uni-id-captcha-required') {
 						this.$refs.popup.open()
-					} else {
-						console.log(e.errMsg);
 					}
 				}).finally(e => {
 					this.captcha = ''

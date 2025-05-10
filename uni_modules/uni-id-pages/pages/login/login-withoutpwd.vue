@@ -80,8 +80,6 @@
 			//获取通过url传递的参数type设置当前登录方式，如果没传递直接默认以配置的登录
 			let type = e.type || config.loginTypes[0]
 			this.type = type
-
-			// console.log("this.type: -----------",this.type);
 			if (type != 'univerify') {
 				this.focusPhone = true
 			}
@@ -121,12 +119,9 @@
 						currentWebview.setStyle({
 							"top": "2000px" // 隐藏当前页面窗体
 						})
-						// this.type == this.loginTypes[1]
-						// console.log('开始一键登录');
 						this.$refs.uniFabLogin.login_before('univerify')
 					},
 					fail: (err) => {
-						console.log(err);
 						if (config.loginTypes.length > 1) {
 							this.$refs.uniFabLogin.login_before(config.loginTypes[1])
 						} else {
@@ -152,7 +147,6 @@
 			},
 			quickLogin(e) {
 				let options = {}
-				console.log(e)
 				if (e.detail?.code) {
 					options.phoneNumberCode = e.detail.code
 				}
@@ -196,160 +190,170 @@
 </script>
 
 <style lang="scss" scoped>
-/* 通用样式 */
-.uni-content {
-  height: 100vh;
-  background: linear-gradient(-45deg, #1a73e8, #2196F3, #03A9F4, #00BCD4);
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+	/* 通用样式 */
+	.uni-content {
+		height: 100vh;
+		background: linear-gradient(-45deg, #1a73e8, #2196F3, #03A9F4, #00BCD4);
+		background-size: 400% 400%;
+		animation: gradientBG 15s ease infinite;
+		overflow: hidden;
+		position: relative;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 
-@keyframes gradientBG {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
+	@keyframes gradientBG {
+		0% {
+			background-position: 0% 50%;
+		}
 
-.floating-bubble {
-  position: absolute;
-  background: rgba(255,255,255,0.1);
-  border-radius: 50%;
-  animation: float 8s infinite linear;
-  opacity: 0.8;
-  backdrop-filter: blur(5px);
-  
-  &.b1 {
-    width: 200rpx;
-    height: 200rpx;
-    left: 15%;
-    top: 20%;
-    animation: float 6s infinite linear;
-    animation-delay: 0.5s;
-  }
-  &.b2 {
-    width: 150rpx;
-    height: 150rpx;
-    right: 15%;
-    top: 35%;
-    animation: float 8s infinite linear;
-  }
-  &.b3 {
-    width: 180rpx;
-    height: 180rpx;
-    left: -7%;
-    top: 65%;
-    animation: float 7s infinite linear;
-    animation-delay: 1.5s;
-  }
-}
+		50% {
+			background-position: 100% 50%;
+		}
 
-.warning{
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 28rpx;
-  text-align: center;
-  margin-top: 20rpx;	
-}
+		100% {
+			background-position: 0% 50%;
+		}
+	}
 
-@keyframes float {
-  0% {
-    transform: translateY(0) translateX(0) scale(1);
-    opacity: 0.8;
-  }
-  33% {
-    transform: translateY(-100rpx) translateX(30rpx) scale(0.9);
-  }
-  66% {
-    transform: translateY(50rpx) translateX(-20rpx) scale(1.1);
-  }
-  100% {
-    transform: translateY(0) translateX(0) scale(1);
-    opacity: 0.4;
-  }
-}
+	.floating-bubble {
+		position: absolute;
+		background: rgba(255, 255, 255, 0.1);
+		border-radius: 50%;
+		animation: float 8s infinite linear;
+		opacity: 0.8;
+		backdrop-filter: blur(5px);
 
-.app-name {
-  display: block;
-  text-align: center;
-  color: #fff;
-  font-size: 62rpx;
-  font-weight: bold;
-  text-shadow: 
-    0 4rpx 8rpx rgba(0,0,0,0.2),
-    0 0 20rpx rgba(255,255,255,0.3);
-  position: relative;
-  z-index: 2;
-}
+		&.b1 {
+			width: 200rpx;
+			height: 200rpx;
+			left: 15%;
+			top: 20%;
+			animation: float 6s infinite linear;
+			animation-delay: 0.5s;
+		}
 
-/* 登录按钮居中样式 */
-.quickLogin {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-top: 80rpx;
-  
-  .quickLoginBtn {
-    width: 500rpx;
-    margin: 0 auto;
-    animation: btnScale 1.5s infinite ease-in-out;
-    position: relative;
-    transition: transform 0.3s;
-    
-    &:active {
-      transform: scale(0.95);
-    }
-  }
-}
+		&.b2 {
+			width: 150rpx;
+			height: 150rpx;
+			right: 15%;
+			top: 35%;
+			animation: float 8s infinite linear;
+		}
 
-@keyframes btnScale {
-  0%, 100% {
-    transform: scale(1);
-    box-shadow: 0 10rpx 30rpx rgba(33, 150, 243, 0.3);
-  }
-  50% {
-    transform: scale(1.02);
-    box-shadow: 0 15rpx 40rpx rgba(33, 150, 243, 0.5);
-  }
-}
+		&.b3 {
+			width: 180rpx;
+			height: 180rpx;
+			left: -7%;
+			top: 65%;
+			animation: float 7s infinite linear;
+			animation-delay: 1.5s;
+		}
+	}
 
-/* 手机号登录部分居中 */
-.phone-box {
-  width: 80%;
-  margin: 40rpx auto;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  padding: 30rpx;
-  border-radius: 20rpx;
-  box-shadow: 0 8rpx 32rpx rgba(31, 38, 135, 0.37);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-}
+	.warning {
+		color: rgba(255, 255, 255, 0.8);
+		font-size: 28rpx;
+		text-align: center;
+		margin-top: 20rpx;
+	}
 
-.uni-btn {
-  display: block;
-  width: 500rpx;
-  margin: 40rpx auto;
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 8rpx 32rpx rgba(31, 38, 135, 0.37);
-  border-radius: 10rpx;
-  color: white;
-  font-weight: bold;
-  
-  &:active {
-    transform: scale(0.98);
-    background: rgba(255, 255, 255, 0.3);
-  }
-}
+	@keyframes float {
+		0% {
+			transform: translateY(0) translateX(0) scale(1);
+			opacity: 0.8;
+		}
+
+		33% {
+			transform: translateY(-100rpx) translateX(30rpx) scale(0.9);
+		}
+
+		66% {
+			transform: translateY(50rpx) translateX(-20rpx) scale(1.1);
+		}
+
+		100% {
+			transform: translateY(0) translateX(0) scale(1);
+			opacity: 0.4;
+		}
+	}
+
+	.app-name {
+		display: block;
+		text-align: center;
+		color: #fff;
+		font-size: 62rpx;
+		font-weight: bold;
+		text-shadow:
+			0 4rpx 8rpx rgba(0, 0, 0, 0.2),
+			0 0 20rpx rgba(255, 255, 255, 0.3);
+		position: relative;
+		z-index: 2;
+	}
+
+	/* 登录按钮居中样式 */
+	.quickLogin {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		margin-top: 80rpx;
+
+		.quickLoginBtn {
+			width: 500rpx;
+			margin: 0 auto;
+			animation: btnScale 1.5s infinite ease-in-out;
+			position: relative;
+			transition: transform 0.3s;
+
+			&:active {
+				transform: scale(0.95);
+			}
+		}
+	}
+
+	@keyframes btnScale {
+
+		0%,
+		100% {
+			transform: scale(1);
+			box-shadow: 0 10rpx 30rpx rgba(33, 150, 243, 0.3);
+		}
+
+		50% {
+			transform: scale(1.02);
+			box-shadow: 0 15rpx 40rpx rgba(33, 150, 243, 0.5);
+		}
+	}
+
+	/* 手机号登录部分居中 */
+	.phone-box {
+		width: 80%;
+		margin: 40rpx auto;
+		background: rgba(255, 255, 255, 0.1);
+		backdrop-filter: blur(10px);
+		padding: 30rpx;
+		border-radius: 20rpx;
+		box-shadow: 0 8rpx 32rpx rgba(31, 38, 135, 0.37);
+		border: 1px solid rgba(255, 255, 255, 0.18);
+	}
+
+	.uni-btn {
+		display: block;
+		width: 500rpx;
+		margin: 40rpx auto;
+		background: rgba(255, 255, 255, 0.25);
+		backdrop-filter: blur(4px);
+		border: 1px solid rgba(255, 255, 255, 0.18);
+		box-shadow: 0 8rpx 32rpx rgba(31, 38, 135, 0.37);
+		border-radius: 10rpx;
+		color: white;
+		font-weight: bold;
+
+		&:active {
+			transform: scale(0.98);
+			background: rgba(255, 255, 255, 0.3);
+		}
+	}
 </style>

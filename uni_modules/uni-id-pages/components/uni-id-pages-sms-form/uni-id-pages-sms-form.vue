@@ -2,7 +2,8 @@
 	<view>
 		<uni-captcha :focus="focusCaptchaInput" ref="captcha" scene="send-sms-code" v-model="captcha" />
 		<view class="box">
-			<uni-easyinput :focus="focusSmsCodeInput" @blur="focusSmsCodeInput = false" type="number" class="input-box" :inputBorder="false" v-model="modelValue" maxlength="6" :clearable="false" trim="both"
+			<uni-easyinput :focus="focusSmsCodeInput" @blur="focusSmsCodeInput = false" type="number" class="input-box"
+				:inputBorder="false" v-model="modelValue" maxlength="6" :clearable="false" trim="both"
 				placeholder="请输入短信验证码">
 			</uni-easyinput>
 			<view class="short-code-btn" hover-class="hover" @click="start">
@@ -83,7 +84,7 @@
 				reverseNumber: 0,
 				reverseTimer: null,
 				modelValue: "",
-				focusSmsCodeInput:false
+				focusSmsCodeInput: false
 			};
 		},
 		watch: {
@@ -136,11 +137,6 @@
 				const uniIdCo = uniCloud.importObject("uni-id-co", {
 					customUI: true
 				})
-				console.log('sendSmsCode',{
-					"mobile": this.phone,
-					"scene": this.type,
-					"captcha": this.captcha
-				});
 				uniIdCo.sendSmsCode({
 					"mobile": this.phone,
 					"scene": this.type,

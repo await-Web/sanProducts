@@ -236,12 +236,9 @@
 							complete(e) {}
 						})
 					}
-				} else {
-					console.log('出乎意料的情况,path：' + path);
-				}
+				} else {}
 			},
 			async login_before(type, navigateBack = true, options = {}) {
-				console.log(type, options);
 				//提示空实现
 				if (["qq",
 						"xiaomi",
@@ -328,8 +325,6 @@
 						baseUrl.replace(/\/$/, '') +
 						(window.location.href.includes('#') ? '/#' : '') +
 						'/uni_modules/uni-id-pages/pages/login/login-withoutpwd?is_weixin_redirect=true&type=weixin'
-
-					// console.log('redirectUrl----',redirectUrl);
 					let ua = window.navigator.userAgent.toLowerCase();
 					if (ua.match(/MicroMessenger/i) == 'micromessenger') {
 						return window.open(`https://open.weixin.qq.com/connect/oauth2/authorize?
@@ -407,7 +402,6 @@
 							this.login(res.authResult, 'univerify')
 						},
 						fail(err) {
-							console.log(err)
 							if (!clickAnotherButtons) {
 								uni.navigateBack()
 							}
@@ -453,7 +447,6 @@
 						} : e.authResult, type)
 					},
 					fail: async (err) => {
-						console.error(JSON.stringify(err));
 						uni.showModal({
 							content: `登录失败; code: ${err.errCode || -1}`,
 							confirmText: "知道了",

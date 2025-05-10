@@ -18,7 +18,6 @@ export const mutations = {
 	async updateUserInfo(data = false) {
 		if (data) {
 			usersTable.where('_id==$env.uid').update(data).then(e => {
-				// console.log(e);
 				if (e.result.updated) {
 					uni.showToast({
 						title: "更新成功",
@@ -53,8 +52,6 @@ export const mutations = {
 					.get()
 
 				const realNameRes = await uniIdCo.getRealNameInfo()
-
-				// console.log('fromDbData',res.result.data);
 				this.setUserInfo({
 					...res.result.data[0],
 					realNameAuth: realNameRes
@@ -72,11 +69,9 @@ export const mutations = {
 	} = {
 		cover: false
 	}) {
-		// console.log('set-userInfo', data);
 		let userInfo = cover ? data : Object.assign(store.userInfo, data)
 		store.userInfo = Object.assign({}, userInfo)
 		store.hasLogin = Object.keys(store.userInfo).length != 0
-		// console.log('store.userInfo', store.userInfo);
 		uni.setStorageSync('uni-id-pages-userInfo', store.userInfo)
 		return data
 	},
@@ -123,7 +118,6 @@ export const mutations = {
 		}
 		// #ifdef H5
 		if (e.loginType == 'weixin') {
-			// console.log('window.history', window.history);
 			return window.history.go(-3)
 		}
 		// #endif

@@ -105,9 +105,7 @@
 			changePassword() {
 				uni.navigateTo({
 					url: '/uni_modules/uni-id-pages/pages/userinfo/change_pwd/change_pwd',
-					complete: (e) => {
-						// console.log(e);
-					}
+					complete: (e) => {}
 				})
 			},
 			bindMobile() {
@@ -116,8 +114,6 @@
 					provider: 'univerify',
 					success: this.univerify(), //预登录成功
 					fail: (res) => { // 预登录失败
-						// 不显示一键登录选项（或置灰）
-						console.log(res)
 						this.bindMobileBySmsCode()
 					}
 				})

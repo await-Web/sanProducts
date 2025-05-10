@@ -21,8 +21,8 @@
 			}
 		},
 		props: {
-			modelValue:String,
-			value:String,
+			modelValue: String,
+			value: String,
 			scene: {
 				type: String,
 				default () {
@@ -36,18 +36,17 @@
 				}
 			},
 		},
-		computed:{
-			val:{
-				get(){
-					return this.value||this.modelValue
+		computed: {
+			val: {
+				get() {
+					return this.value || this.modelValue
 				},
-				set(value){
-					// console.log(value);
+				set(value) {
 					// TODO 兼容 vue2
 					// #ifdef VUE2
 					this.$emit('input', value);
 					// #endif
-					
+
 					// TODO　兼容　vue3
 					// #ifdef VUE3
 					this.$emit('update:modelValue', value)
@@ -66,7 +65,7 @@
 				this.$refs.popup.close()
 			},
 			confirm() {
-				if(!this.val){
+				if (!this.val) {
 					return uni.showToast({
 						title: '请填写验证码',
 						icon: 'none'
@@ -124,16 +123,20 @@
 		align-items: center;
 		justify-content: space-around;
 	}
-	.button-box ,.btn{
+
+	.button-box,
+	.btn {
 		height: 44px;
 		line-height: 44px;
 	}
-	.button-box .btn{
+
+	.button-box .btn {
 		flex: 1;
 		margin: 1px;
 		text-align: center;
 	}
-	.button-box .confirm{
+
+	.button-box .confirm {
 		color: #007aff;
 		border-left: solid 1px #eee;
 	}
