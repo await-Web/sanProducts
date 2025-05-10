@@ -101,7 +101,6 @@
 			},
 
 			onAdLoad() {
-
 				// 创建一个SelectorQuery实例
 				const query = uni.createSelectorQuery()
 				// 在当前页面中选择具有ref为'target'的组件
@@ -109,7 +108,6 @@
 				// 执行查询
 				query.exec((res) => {
 					if (res && res.length > 0) {
-						console.log(res[0])
 						const {
 							left,
 							top,
@@ -117,19 +115,10 @@
 							height
 						} = res[0]
 						this.Height = height
-						console.log('组件的位置信息：', {
-							left,
-							top,
-							width,
-							height
-						})
 					}
 				})
 			},
-
-
 			onShareAppMessage(res) {
-				console.log(res);
 				if (res.from === 'menu') { // button：来自页面内分享按钮
 					return {
 						title: '我的物品录',
@@ -227,7 +216,6 @@
 
 			async sendFindNetInfo(code) {
 				const self = this;
-				console.log('code', code);
 				try {
 					const res = await uni.request({
 						url: 'https://www.mxnzp.com/api/barcode/goods/details',
@@ -238,18 +226,14 @@
 							app_secret: '8gv3Yy4xGh7coenRdCREDBRKD3lfXVD6'
 						}
 					});
-					console.log(res);
 					if (res.data.code === 1) {
-						console.log('商品信息', res.data.data);
 						self.newGoods.goods_name = res.data.data.goodsName;
 						self.$refs.addPopup.open();
 					} else {
-						console.log(res.data.msg)
 						self.newGoods.goods_name = ''
 						self.$refs.addPopup.open();
 					}
 				} catch (err) {
-					console.error('网络请求失败', err);
 					throw err;
 				}
 			},

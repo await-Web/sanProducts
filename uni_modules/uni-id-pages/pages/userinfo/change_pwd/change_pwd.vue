@@ -31,9 +31,9 @@
 
 <script>
 	import mixin from '@/uni_modules/uni-id-pages/common/login-page.mixin.js';
-  import passwordMod from '@/uni_modules/uni-id-pages/common/password.js'
-  const uniIdCo = uniCloud.importObject("uni-id-co", {
-		customUI:true
+	import passwordMod from '@/uni_modules/uni-id-pages/common/password.js'
+	const uniIdCo = uniCloud.importObject("uni-id-co", {
+		customUI: true
 	})
 	export default {
 		mixins: [mixin],
@@ -59,8 +59,8 @@
 							}
 						]
 					},
-          ...passwordMod.getPwdRules('newPassword', 'newPassword2')
-        },
+					...passwordMod.getPwdRules('newPassword', 'newPassword2')
+				},
 				logo: "/static/logo.png"
 			}
 		},
@@ -89,21 +89,20 @@
 							newPassword
 						} = this.formData
 						uniIdCo.updatePwd({
-								oldPassword,
-								newPassword
-							}).then(e => {
-								console.log('updatePwd')
-								uni.removeStorageSync('uni_id_token');
-								uni.setStorageSync('uni_id_token_expired', 0)
-								uni.redirectTo({
-									url:'/uni_modules/uni-id-pages/pages/login/login-withpwd'
-								})
-							}).catch(e => {
-								uni.showModal({
-									content: e.message,
-									showCancel: false
-								});
+							oldPassword,
+							newPassword
+						}).then(e => {
+							uni.removeStorageSync('uni_id_token');
+							uni.setStorageSync('uni_id_token_expired', 0)
+							uni.redirectTo({
+								url: '/uni_modules/uni-id-pages/pages/login/login-withpwd'
 							})
+						}).catch(e => {
+							uni.showModal({
+								content: e.message,
+								showCancel: false
+							});
+						})
 					}).catch(errors => {
 						let key = errors[0].key
 						key = key.replace(key[0], key[0].toUpperCase())
@@ -118,13 +117,13 @@
 	@import "@/uni_modules/uni-id-pages/common/login-page.scss";
 
 	@media screen and (max-width: 690px) {
-		.uni-content{
+		.uni-content {
 			margin-top: 15px;
 		}
 	}
 
 	@media screen and (min-width: 690px) {
-		.uni-content{
+		.uni-content {
 			padding: 30px 40px 40px;
 		}
 	}

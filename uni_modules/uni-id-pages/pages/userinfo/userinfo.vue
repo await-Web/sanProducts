@@ -12,8 +12,9 @@
 			<uni-list-item v-if="userInfo.email" class="item" title="电子邮箱" :rightText="userInfo.email">
 			</uni-list-item>
 			<!-- #ifdef APP -->
-      <!-- 如未开通实人认证服务，可以将实名认证入口注释 -->
-			<uni-list-item class="item" @click="realNameVerify" title="实名认证" :rightText="realNameStatus !== 2 ? '未认证': '已认证'" link>
+			<!-- 如未开通实人认证服务，可以将实名认证入口注释 -->
+			<uni-list-item class="item" @click="realNameVerify" title="实名认证"
+				:rightText="realNameStatus !== 2 ? '未认证': '已认证'" link>
 			</uni-list-item>
 			<!-- #endif -->
 			<uni-list-item v-if="hasPwd" class="item" @click="changePassword" title="修改密码" link>
@@ -25,8 +26,8 @@
 		</uni-list>
 		<!-- #endif -->
 		<uni-popup ref="dialog" type="dialog">
-			<uni-popup-dialog mode="input" :value="userInfo.nickname" @confirm="setNickname" :inputType="setNicknameIng?'nickname':'text'"
-				title="设置昵称" placeholder="请输入要设置的昵称">
+			<uni-popup-dialog mode="input" :value="userInfo.nickname" @confirm="setNickname"
+				:inputType="setNicknameIng?'nickname':'text'" title="设置昵称" placeholder="请输入要设置的昵称">
 			</uni-popup-dialog>
 		</uni-popup>
 		<uni-id-pages-bind-mobile ref="bind-mobile-by-sms" @success="bindMobileSuccess"></uni-id-pages-bind-mobile>
@@ -37,24 +38,24 @@
 	</view>
 </template>
 <script>
-const uniIdCo = uniCloud.importObject("uni-id-co")
-  import {
-    store,
-    mutations
-  } from '@/uni_modules/uni-id-pages/common/store.js'
+	const uniIdCo = uniCloud.importObject("uni-id-co")
+	import {
+		store,
+		mutations
+	} from '@/uni_modules/uni-id-pages/common/store.js'
 	export default {
-    computed: {
-      userInfo() {
-        return store.userInfo
-      },
-	  realNameStatus () {
-		  if (!this.userInfo.realNameAuth) {
-			  return 0
-		  }
+		computed: {
+			userInfo() {
+				return store.userInfo
+			},
+			realNameStatus() {
+				if (!this.userInfo.realNameAuth) {
+					return 0
+				}
 
-		  return this.userInfo.realNameAuth.authStatus
-	  }
-    },
+				return this.userInfo.realNameAuth.authStatus
+			}
+		},
 		data() {
 			return {
 				univerifyStyle: {
@@ -70,8 +71,8 @@ const uniIdCo = uniCloud.importObject("uni-id-co")
 				// 	nickname:''
 				// },
 				hasPwd: false,
-				showLoginManage: false ,//通过页面传参隐藏登录&退出登录按钮
-				setNicknameIng:false
+				showLoginManage: false, //通过页面传参隐藏登录&退出登录按钮
+				setNicknameIng: false
 			}
 		},
 		async onShow() {
@@ -138,15 +139,11 @@ const uniIdCo = uniCloud.importObject("uni-id-co")
 					success: async e => {
 						uniIdCo.bindMobileByUniverify(e.authResult).then(res => {
 							mutations.updateUserInfo()
-						}).catch(e => {
-							console.log(e);
-						}).finally(e => {
-							// console.log(e);
+						}).catch(e => {}).finally(e => {
 							uni.closeAuthView()
 						})
 					},
 					fail: (err) => {
-						console.log(err);
 						if (err.code == '30002' || err.code == '30001') {
 							this.bindMobileBySmsCode()
 						}
@@ -169,9 +166,9 @@ const uniIdCo = uniCloud.importObject("uni-id-co")
 					this.$refs.dialog.open()
 				}
 			},
-			deactivate(){
+			deactivate() {
 				uni.navigateTo({
-					url:"/uni_modules/uni-id-pages/pages/userinfo/deactivate/deactivate"
+					url: "/uni_modules/uni-id-pages/pages/userinfo/deactivate/deactivate"
 				})
 			},
 			async bindThirdAccount(provider) {
@@ -181,7 +178,7 @@ const uniIdCo = uniCloud.importObject("uni-id-co")
 					alipay: 'ali_openid',
 					apple: 'apple_openid',
 					qq: 'qq_openid'
-				}[provider.toLowerCase()]
+				} [provider.toLowerCase()]
 
 				if (this.userInfo[bindField]) {
 					await uniIdCo['unbind' + provider]()
@@ -203,13 +200,12 @@ const uniIdCo = uniCloud.importObject("uni-id-co")
 							await mutations.updateUserInfo()
 						},
 						fail: async (err) => {
-							console.log(err);
 							uni.hideLoading()
 						}
 					})
 				}
 			},
-			realNameVerify () {
+			realNameVerify() {
 				uni.navigateTo({
 					url: "/uni_modules/uni-id-pages/pages/userinfo/realname-verify/realname-verify"
 				})

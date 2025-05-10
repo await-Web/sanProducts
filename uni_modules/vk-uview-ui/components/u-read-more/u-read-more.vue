@@ -7,8 +7,7 @@
 			<slot></slot>
 		</view>
 		<view @tap="toggleReadMore" v-if="isLongContent" class="u-content__showmore-wrap"
-		    :class="{ 'u-content__show-more': showMore }"
-		    :style="[innerShadowStyle]">
+			:class="{ 'u-content__show-more': showMore }" :style="[innerShadowStyle]">
 			<text class="u-content__showmore-wrap__readmore-btn" :style="{
 				fontSize: fontSize + 'rpx',
 				color: color
@@ -38,7 +37,7 @@
 	 */
 	export default {
 		name: "u-read-more",
-    emits: ["open", "close"],
+		emits: ["open", "close"],
 		props: {
 			// 默认的显示占位高度，单位为rpx
 			showHeight: {
@@ -125,11 +124,12 @@
 				try {
 					const observer = uni.createIntersectionObserver(this);
 					observer.relativeToViewport().observe('.u-content', (res) => {
-						const { height } = res.intersectionRect;
-						//console.log('元素的高度：', height);
+						const {
+							height
+						} = res.intersectionRect;
 						this.init();
 					});
-				} catch(err){}
+				} catch (err) {}
 			},
 			init() {
 				this.$uGetRect('.' + this.elId).then(res => {

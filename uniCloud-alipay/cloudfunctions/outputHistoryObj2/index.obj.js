@@ -32,7 +32,6 @@ module.exports = {
 			date,
 			month
 		}
-		console.log(record)
 
 		try {
 			const result = await dbObj.collection('output-history').add(record)
@@ -79,7 +78,9 @@ module.exports = {
 						output_count: $.sum(1),
 						total_amount: $.sum('$total_amount'),
 						total_quantity: $.sum('$total_quantity'),
-						date: { $first: '$date' }
+						date: {
+							$first: '$date'
+						}
 					})
 					.sort({
 						_id: 1
@@ -92,8 +93,10 @@ module.exports = {
 			const statsByDate = {};
 			dates.forEach((date, index) => {
 				// 生成所有可能的时间段 (0-1, 1-2, ..., 23-24)
-				const allTimeSlots = Array.from({length: 24}, (_, i) => `${i}`);
-				
+				const allTimeSlots = Array.from({
+					length: 24
+				}, (_, i) => `${i}`);
+
 				// 创建默认值为0的所有时间段
 				const defaultStats = allTimeSlots.map(timeSlot => ({
 					time_slot: timeSlot,
@@ -101,7 +104,7 @@ module.exports = {
 					total_amount: '0.00',
 					total_quantity: 0
 				}));
-				
+
 				// 合并数据库结果和默认值
 				const dbResults = results[index].data.map(item => ({
 					time_slot: item._id,
@@ -109,10 +112,11 @@ module.exports = {
 					total_amount: item.total_amount.toFixed(2),
 					total_quantity: item.total_quantity
 				}));
-				
+
 				// 用数据库结果覆盖默认值中对应的项
 				statsByDate[date] = defaultStats.map(defaultItem => {
-					const dbItem = dbResults.find(dbItem => dbItem.time_slot === defaultItem.time_slot);
+					const dbItem = dbResults.find(dbItem => dbItem.time_slot === defaultItem
+						.time_slot);
 					return dbItem || defaultItem;
 				});
 			});
@@ -258,8 +262,10 @@ module.exports = {
 	 * @returns {Object} 出库记录列表
 	 */
 	async getOutputRecords(params = {}) {
-		const { page = 1, size = 10, date = new Date().toISOString().split('T')[0] } = params
-		
+		const {
+			page = 1, size = 10, date = new Date().toISOString().split('T')[0]
+		} = params
+
 		// 参数验证
 		if (!Number.isInteger(page) || page < 1) {
 			return {
@@ -267,14 +273,14 @@ module.exports = {
 				errMsg: '页码必须是大于0的整数'
 			}
 		}
-		
+
 		if (!Number.isInteger(size) || size < 1 || size > 50) {
 			return {
 				errCode: 'INVALID_SIZE',
 				errMsg: '每页记录数必须是1-50之间的整数'
 			}
 		}
-		
+
 		const dateRegex = /^\d{4}-\d{2}-\d{2}$/
 		if (!dateRegex.test(date)) {
 			return {
@@ -325,8 +331,8 @@ module.exports = {
 				.limit(size)
 				.orderBy('create_time', 'desc')
 				.get()
-			
-			
+
+
 			return {
 				success: true,
 				data: {

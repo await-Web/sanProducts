@@ -222,8 +222,6 @@
 				this.TimeSlotList = resTimeSlot.data
 				this.MonthlyList = resMonthly.data
 				this.DailyList = resDaily.data
-
-				console.log('DailyList', this.DailyList)
 				this.formatTimeSlotChartData()
 				this.formatDailyChartData()
 				this.formatMonthlyChartData()
@@ -302,7 +300,6 @@
 				const nowDate = new Date()
 				const nowHour = nowDate.getHours()
 				const nowDateStr = nowDate.toISOString().split('T')[0]
-				// console.log('dates', dates)
 				// 出库次数图表数据
 				const countSeries = dates.map(date => {
 					const now = new Date(nowDate);
@@ -321,8 +318,6 @@
 						}
 						return item.output_count;
 					});
-
-					// console.log('date:', date, 'flag:', flag, 'data:', dataTmp);
 					return {
 						name: flag,
 						data: dataTmp
@@ -364,7 +359,6 @@
 					categories,
 					series: amountSeries
 				}
-				console.log('amountSeries', this.amountTimeSlotChartData)
 				// 出库商品数量图表数据
 				const quantitySeries = dates.map(date => {
 					const now = new Date(nowDate);

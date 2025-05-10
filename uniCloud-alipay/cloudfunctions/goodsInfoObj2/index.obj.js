@@ -29,10 +29,9 @@ module.exports = {
 		if (typeof uid === 'object') {
 			return uid
 		}
-		console.log('add',params)
 		return await dbObj.collection('goods-info').add(params)
 	},
-	
+
 	// 查找这个用户是否有这个商品
 	async findGoods(goods_sn) {
 		const dbObj = uniCloud.databaseForJQL({
@@ -64,7 +63,7 @@ module.exports = {
 			}
 		}
 	},
-	
+
 	// 删除商品信息
 	async removeGoods(params = {}) {
 		const dbObj = uniCloud.databaseForJQL({
@@ -74,16 +73,15 @@ module.exports = {
 		if (typeof uid === 'object') {
 			return uid
 		}
-		if(params.fileID){
+		if (params.fileID) {
 			const res = await uniCloud.deleteFile({
 				fileList: [params.fileID] // 文件ID数组
 			});
-			console.log('del',res)
 		}
 
 		return await dbObj.collection('goods-info').doc(params._id).remove()
 	},
-	
+
 	// 修改商品信息
 	async updateGoods(params = {}) {
 		const dbObj = uniCloud.databaseForJQL({
@@ -103,14 +101,12 @@ module.exports = {
 
 		const id = params._id
 		delete params._id
-		console.log('update', params)
 		const tempGoodsInfo = {
 			...params,
 			goods_price: Number(params.goods_price),
 			goods_cost: params.goods_cost === '' ? '' : Number(params.goods_cost),
 			last_modify_date: new Date().getTime()
 		}
-		console.log('update', tempGoodsInfo)
 		return await dbObj.collection('goods-info').doc(id).update(tempGoodsInfo)
 	},
 	// 搜索商品
@@ -317,8 +313,6 @@ module.exports = {
 					goods_name: true,
 					goods_threshold: true
 				}).get();
-				// console.log(goodsDoc)
-				// console.log(goodsDoc.data[0].goods_num != null , goodsDoc.data[0].goods_threshold != null , !isNaN(goodsDoc.data[0].goods_num)  , !isNaN(goodsDoc.data[0].goods_threshold))
 				if (goodsDoc.data && goodsDoc.data.length > 0 && goodsDoc.data[0].goods_num != null && goodsDoc
 					.data[0].goods_threshold != null && !isNaN(goodsDoc.data[0].goods_num) && !isNaN(goodsDoc
 						.data[0].goods_threshold)) {
@@ -330,7 +324,6 @@ module.exports = {
 					const {
 						goods_threshold
 					} = goodsDoc.data[0];
-					// console.log(goods_threshold,currentQuantity)
 					if (goods_threshold !== null && goods_threshold !== undefined && goods_threshold !== '' &&
 						currentQuantity <= goods_threshold) {
 						zeroQuantityGoods.push(goodsDoc.data[0].goods_name);

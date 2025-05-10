@@ -2,8 +2,8 @@
 	<view>
 		<uni-captcha :focus="focusCaptchaInput" ref="captcha" scene="send-email-code" v-model="captcha" />
 		<view class="box">
-			<uni-easyinput :focus="focusEmailCodeInput" @blur="focusEmailCodeInput = false" type="number" class="input-box" :inputBorder="false" v-model="modelValue" maxlength="6"
-				placeholder="请输入邮箱验证码">
+			<uni-easyinput :focus="focusEmailCodeInput" @blur="focusEmailCodeInput = false" type="number"
+				class="input-box" :inputBorder="false" v-model="modelValue" maxlength="6" placeholder="请输入邮箱验证码">
 			</uni-easyinput>
 			<view class="short-code-btn" hover-class="hover" @click="start">
 				<text class="inner-text" :class="reverseNumber==0?'inner-text-active':''">{{innerText}}</text>
@@ -83,7 +83,7 @@
 				reverseNumber: 0,
 				reverseTimer: null,
 				modelValue: "",
-				focusEmailCodeInput:false
+				focusEmailCodeInput: false
 			};
 		},
 		watch: {
@@ -127,7 +127,7 @@
 						duration: 3000
 					});
 				}
-				if(!this.email) return uni.showToast({
+				if (!this.email) return uni.showToast({
 					title: "请输入邮箱",
 					icon: 'none',
 					duration: 3000
@@ -141,11 +141,6 @@
 				const uniIdCo = uniCloud.importObject("uni-id-co", {
 					customUI: true
 				})
-				console.log('sendEmailCode',{
-					"email": this.email,
-					"scene": this.type,
-					"captcha": this.captcha
-				});
 				uniIdCo.sendEmailCode({
 					"email": this.email,
 					"scene": this.type,
@@ -212,7 +207,7 @@
 		/* #endif */
 		justify-content: center;
 		align-items: center;
-		
+
 	}
 
 	.inner-text {

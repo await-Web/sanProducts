@@ -31,28 +31,30 @@
 
 <script>
 	import config from '@/uni_modules/uni-id-pages/config.js'
-	let retryFun = ()=>console.log('为定义')
+	let retryFun = () => console.log('为定义')
 	/**
-		* uni-id-pages-agreements
-		* @description 用户服务协议和隐私政策条款组件
-		* @property {String,Boolean} scope = [register|login]	作用于哪种场景如：register 注册（包括登录并注册，如：微信登录、苹果登录、短信验证码登录）、login 登录。默认值为：register
-	*/
+	 * uni-id-pages-agreements
+	 * @description 用户服务协议和隐私政策条款组件
+	 * @property {String,Boolean} scope = [register|login]	作用于哪种场景如：register 注册（包括登录并注册，如：微信登录、苹果登录、短信验证码登录）、login 登录。默认值为：register
+	 */
 	export default {
 		name: "uni-agreements",
 		computed: {
 			agreements() {
-				if(!config.agreements){
+				if (!config.agreements) {
 					return []
 				}
-				let {serviceUrl,privacyUrl} = config.agreements
-				return [
-					{
-						url:serviceUrl,
-						title:"用户服务协议"
+				let {
+					serviceUrl,
+					privacyUrl
+				} = config.agreements
+				return [{
+						url: serviceUrl,
+						title: "用户服务协议"
 					},
 					{
-						url:privacyUrl,
-						title:"隐私政策条款"
+						url: privacyUrl,
+						title: "隐私政策条款"
 					}
 				]
 			}
@@ -60,31 +62,31 @@
 		props: {
 			scope: {
 				type: String,
-				default(){
+				default () {
 					return 'register'
 				}
 			},
 		},
 		methods: {
-			popupConfirm(){
+			popupConfirm() {
 				this.isAgree = true
 				retryFun()
 				// this.$emit('popupConfirm')
 			},
-			popup(Fun){
+			popup(Fun) {
 				this.needPopupAgreements = true
 				// this.needAgreements = true
 
 				//::TODO 鸿蒙元服务暂不支持 createAnimation，等支持后再打开
 				// #ifdef MP-HARMONY
-					return uni.showModal({
-						title: "提示",
-						content: `请先阅读并同意${this.agreements.map(item=>`“${item.title}”`).join('和')}`,
-					})
+				return uni.showModal({
+					title: "提示",
+					content: `请先阅读并同意${this.agreements.map(item=>`“${item.title}”`).join('和')}`,
+				})
 				// #endif
 				// #ifndef MP-HARMONY
-				this.$nextTick(()=>{
-					if(Fun){
+				this.$nextTick(() => {
+					if (Fun) {
 						retryFun = Fun
 					}
 					this.$refs.popupAgreement.open()
@@ -97,12 +99,8 @@
 			}) {
 				uni.navigateTo({
 					url,
-					success: res => {
-						console.log('success',res)
-					},
-					fail: (res) => {
-						console.log('err',res)
-					},
+					success: res => {},
+					fail: (res) => {},
 					complete: () => {}
 				});
 			},
@@ -120,8 +118,8 @@
 		data() {
 			return {
 				isAgree: false,
-				needAgreements:true,
-				needPopupAgreements:false
+				needAgreements: true,
+				needPopupAgreements: false
 			};
 		}
 	}
@@ -143,7 +141,8 @@
 		color: #8a8f8b;
 	}
 
-	.checkbox-box ,.uni-label-pointer{
+	.checkbox-box,
+	.uni-label-pointer {
 		align-items: center;
 		display: flex;
 		flex-direction: row;
@@ -153,30 +152,32 @@
 		flex-direction: row;
 		position: relative;
 	}
-	.text{
+
+	.text {
 		line-height: 26px;
 	}
+
 	.agreement {
 		color: #04498c;
 		cursor: pointer;
 	}
 
-	.checkbox-box ::v-deep .uni-checkbox-input{
+	.checkbox-box ::v-deep .uni-checkbox-input {
 		border-radius: 100%;
 	}
 
-	.checkbox-box ::v-deep .uni-checkbox-input.uni-checkbox-input-checked{
+	.checkbox-box ::v-deep .uni-checkbox-input.uni-checkbox-input-checked {
 		border-color: $uni-color-primary;
 		color: #FFFFFF !important;
 		background-color: $uni-color-primary;
 	}
 
-	.content{
+	.content {
 		flex-wrap: wrap;
 		flex-direction: row;
 	}
 
-	.root ::v-deep .uni-popup__error{
+	.root ::v-deep .uni-popup__error {
 		color: #333333;
 	}
 </style>

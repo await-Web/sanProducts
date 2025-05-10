@@ -13,8 +13,8 @@
 <script>
 	export default {
 		props: {
-			modelValue:String,
-			value:String,
+			modelValue: String,
+			value: String,
 			scene: {
 				type: String,
 				default () {
@@ -28,18 +28,17 @@
 				}
 			}
 		},
-		computed:{
-			val:{
-				get(){
-					return this.value||this.modelValue
+		computed: {
+			val: {
+				get() {
+					return this.value || this.modelValue
 				},
-				set(value){
-					// console.log(value);
+				set(value) {
 					// TODO 兼容 vue2
 					// #ifdef VUE2
 					this.$emit('input', value);
 					// #endif
-					
+
 					// TODO　兼容　vue3
 					// #ifdef VUE3
 					this.$emit('update:modelValue', value)
@@ -66,7 +65,7 @@
 						});
 					}
 				},
-				immediate:true
+				immediate: true
 			}
 		},
 		methods: {
@@ -140,8 +139,8 @@
 		height: 44px !important;
 		width: 100px;
 	}
-	
-	.captcha-img{
+
+	.captcha-img {
 		cursor: pointer;
 	}
 

@@ -3,43 +3,43 @@ const uniID = require('uni-id-common')
 
 
 module.exports = {
-	_before: async function () { // 通用预处理器
+	_before: async function() { // 通用预处理器
 		this.uniID = uniID.createInstance({
 			clientInfo: this.getClientInfo()
 		})
 
 	},
-	async checkLogin(){
+	async checkLogin() {
 		const dbObj = uniCloud.databaseForJQL({
 			clientInfo: this.getClientInfo()
 		})
-		
+
 		const token = this.getUniIdToken();
 		const payload = await this.uniID.checkToken(token);
 		if (!payload.uid) {
-		    return {
-		        code: -1,
-		        msg: '用户未登录'
-		    };
-		}else{
 			return {
-				code:200
+				code: -1,
+				msg: '用户未登录'
+			};
+		} else {
+			return {
+				code: 200
 			}
 		}
 	},
-	
+
 	async exportGoods() {
 		const dbObj = uniCloud.databaseForJQL({
 			clientInfo: this.getClientInfo()
 		})
-		
+
 		const token = this.getUniIdToken();
 		const payload = await this.uniID.checkToken(token);
 		if (!payload.uid) {
-		    return {
-		        code: -1,
-		        msg: '用户未登录'
-		    };
+			return {
+				code: -1,
+				msg: '用户未登录'
+			};
 		}
 
 
@@ -48,7 +48,8 @@ module.exports = {
 			let offset = 0;
 			const limit = 200;
 			while (true) {
-				const res = await dbObj.collection('goods-info').where('user_id==$env.uid').skip(offset).limit(limit).get();
+				const res = await dbObj.collection('goods-info').where('user_id==$env.uid').skip(offset).limit(
+					limit).get();
 				const data = res.data;
 				if (data.length === 0) {
 					break;
@@ -59,7 +60,7 @@ module.exports = {
 			const workbook = new ExcelJS.Workbook();
 			const worksheet = workbook.addWorksheet('Goods');
 			// 添加表头
-			worksheet.addRow(['商品条形码', '商品名称', '商品价格', '商品成本', '商品库存','商品缺货提醒阈值','商品备注', '修改时间'])
+			worksheet.addRow(['商品条形码', '商品名称', '商品价格', '商品成本', '商品库存', '商品缺货提醒阈值', '商品备注', '修改时间'])
 
 			// 添加数据行
 			allData.forEach(goods => {
@@ -102,7 +103,6 @@ module.exports = {
 				downloadUrl: downloadURL.fileList[0].tempFileURL
 			};
 		} catch (e) {
-			console.log(e)
 			return {
 				code: 500,
 				message: '数据导出失败',
@@ -112,70 +112,79 @@ module.exports = {
 	},
 
 	async importGoods(data) {
-	    const dbObj = uniCloud.databaseForJQL({
-	        clientInfo: this.getClientInfo()
-	    });
-	
-	    const token = this.getUniIdToken();
-	    const payload = await this.uniID.checkToken(token);
-	    if (!payload.uid) {
-	        return {
-	            code: -1,
-	            msg: '用户未登录'
-	        };
-	    }
-	
-	    try {
-	        const userId = payload.uid;
-	        const tasks = data.map(item => {
-	            const goodsNum = item[4]==='' ? "" : Number(item[4]);
-	            const goodsThreshold = item[5]===''? "" : Number(item[5]);
-                const goodsCost = item[3]===''? "" : Number(item[3]);
-	            const goods = {
-	                goods_sn: item[0] ? String(item[0]) : "",
-	                goods_name: String(item[1]),
-	                goods_price: Number(item[2]),
-                    goods_cost: goodsCost,
-	                goods_num: goodsNum,
-	                goods_threshold: goodsThreshold,
-	                goods_notes: item[6] ? String(item[6]) : "",
-	                last_modify_date: new Date().getTime()
-	            };
-	
-	            // 检查数据是否存在，使用当前 item 生成查询条件
-	            const queryCondition = item[0]
-	               ? { user_id: userId, goods_sn: goods.goods_sn }
-	                : { user_id: userId, goods_name: goods.goods_name };
-	
-	
-	            return dbObj.collection('goods-info').where(queryCondition).get()
-	               .then(res => {
-	                    if (res.data.length > 0) {
-	                        // 如果数据存在，则更新
-	                        return dbObj.collection('goods-info').doc(res.data[0]._id).update(goods);
-	                    } else {
-	                        // 如果数据不存在，则添加
-	                        return dbObj.collection('goods-info').add(goods);
-	                    }
-	                })
-	               .catch(error => {
-	                    console.error('处理商品信息时出错:', error);
-	                    // 可以选择返回一个错误对象，或者其他处理方式
-	                    return { error: error };
-	                });
-	        });
-	
-	        const res = await Promise.all(tasks);
-	        return {
-	            code: 200,
-	            message: '数据导入成功',
-	        };
-	    } catch (e) {
-	        return {
-	            code: 500,
-	            message: '数据导入失败',
-	            error: e
-	        };
-	    }
-	}    
+		const dbObj = uniCloud.databaseForJQL({
+			clientInfo: this.getClientInfo()
+		});
+
+		const token = this.getUniIdToken();
+		const payload = await this.uniID.checkToken(token);
+		if (!payload.uid) {
+			return {
+				code: -1,
+				msg: '用户未登录'
+			};
+		}
+
+		try {
+			const userId = payload.uid;
+			const tasks = data.map(item => {
+				const goodsNum = item[4] === '' ? "" : Number(item[4]);
+				const goodsThreshold = item[5] === '' ? "" : Number(item[5]);
+				const goodsCost = item[3] === '' ? "" : Number(item[3]);
+				const goods = {
+					goods_sn: item[0] ? String(item[0]) : "",
+					goods_name: String(item[1]),
+					goods_price: Number(item[2]),
+					goods_cost: goodsCost,
+					goods_num: goodsNum,
+					goods_threshold: goodsThreshold,
+					goods_notes: item[6] ? String(item[6]) : "",
+					last_modify_date: new Date().getTime()
+				};
+
+				// 检查数据是否存在，使用当前 item 生成查询条件
+				const queryCondition = item[0] ?
+					{
+						user_id: userId,
+						goods_sn: goods.goods_sn
+					} :
+					{
+						user_id: userId,
+						goods_name: goods.goods_name
+					};
+
+
+				return dbObj.collection('goods-info').where(queryCondition).get()
+					.then(res => {
+						if (res.data.length > 0) {
+							// 如果数据存在，则更新
+							return dbObj.collection('goods-info').doc(res.data[0]._id).update(
+							goods);
+						} else {
+							// 如果数据不存在，则添加
+							return dbObj.collection('goods-info').add(goods);
+						}
+					})
+					.catch(error => {
+						console.error('处理商品信息时出错:', error);
+						// 可以选择返回一个错误对象，或者其他处理方式
+						return {
+							error: error
+						};
+					});
+			});
+
+			const res = await Promise.all(tasks);
+			return {
+				code: 200,
+				message: '数据导入成功',
+			};
+		} catch (e) {
+			return {
+				code: 500,
+				message: '数据导入失败',
+				error: e
+			};
+		}
+	}
 }

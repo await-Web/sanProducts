@@ -12,7 +12,10 @@
 <script>
 	import config from '@/uni_modules/uni-id-pages/config.js'
 	//前一个窗口的页面地址。控制点击切换快捷登录方式是创建还是返回
-	import {store,mutations} from '@/uni_modules/uni-id-pages/common/store.js'
+	import {
+		store,
+		mutations
+	} from '@/uni_modules/uni-id-pages/common/store.js'
 	let allServicesList = []
 	export default {
 		computed: {
@@ -194,7 +197,7 @@
 			})
 		},
 		methods: {
-			getParentComponent(){
+			getParentComponent() {
 				// #ifndef H5
 				return this.$parent;
 				// #endif
@@ -203,9 +206,7 @@
 				return this.$parent.$parent;
 				// #endif
 			},
-			setUserInfo(e) {
-				console.log('setUserInfo', e);
-			},
+			setUserInfo(e) {},
 			getRoute(n = 0) {
 				let pages = getCurrentPages();
 				if (n > pages.length) {
@@ -213,8 +214,7 @@
 				}
 				return '/' + pages[pages.length - n].route
 			},
-			toPage(path,index = 0) {
-				console.log('比较', this.getRoute(1),this.getRoute(2), path)
+			toPage(path, index = 0) {
 				if (this.getRoute(1) == path.split('?')[0] && this.getRoute(1) ==
 					'/uni_modules/uni-id-pages/pages/login/login-withoutpwd') {
 					//如果要被打开的页面已经打开，且这个页面是 /uni_modules/uni-id-pages/pages/index/index 则把类型参数传给他
@@ -223,21 +223,17 @@
 				} else if (this.getRoute(2) == path) { // 如果上一个页面就是，马上要打开的页面，直接返回。防止重复开启
 					uni.navigateBack();
 				} else if (this.getRoute(1) != path) {
-					if(index === 0){
+					if (index === 0) {
 						uni.navigateTo({
 							url: path,
 							animationType: 'slide-in-left',
-							complete(e) {
-								// console.log(e);
-							}
+							complete(e) {}
 						})
-					}else{
+					} else {
 						uni.redirectTo({
 							url: path,
 							animationType: 'slide-in-left',
-							complete(e) {
-								// console.log(e);
-							}
+							complete(e) {}
 						})
 					}
 				} else {
@@ -262,18 +258,14 @@
 						duration: 3000
 					});
 				}
-
-				console.log('检查当前环境是否支持这种登录方式')
 				//检查当前环境是否支持这种登录方式
 				// #ifdef APP
 				let isAppExist = true
 				await new Promise((callback) => {
-					console.log('uni.getProvider', uni.getProvider)
 					uni.getProvider({
 						service: 'oauth',
 						success: (res) => {
 							const provider = res.providers.find(item => item.id === type)
-							console.log('res', res)
 							if (provider) {
 								isAppExist = provider?.isAppExist ?? true
 								callback()
@@ -299,7 +291,7 @@
 
 					//非app端使用了，app特有登录方式
 					// #ifndef APP
-					["univerify","apple"].includes(type)
+					["univerify", "apple"].includes(type)
 					// #endif
 
 				) {
@@ -318,46 +310,42 @@
 					})
 				}
 				// #ifdef H5
-					if(type == 'weixin'){
-						// console.log('开始微信网页登录');
-						// let redirectUrl = location.protocol +'//'+
-						// 				document.domain +
-						// 				(window.location.href.includes('#')?'/#':'') +
-						// 				'/uni_modules/uni-id-pages/pages/login/login-withoutpwd?is_weixin_redirect=true&type=weixin'
-            // #ifdef VUE2
-            const baseUrl = process.env.BASE_URL
-            // #endif
-            // #ifdef VUE3
-            const baseUrl = import.meta.env.BASE_URL
-            // #endif
+				if (type == 'weixin') {
+					// let redirectUrl = location.protocol +'//'+
+					// 				document.domain +
+					// 				(window.location.href.includes('#')?'/#':'') +
+					// 				'/uni_modules/uni-id-pages/pages/login/login-withoutpwd?is_weixin_redirect=true&type=weixin'
+					// #ifdef VUE2
+					const baseUrl = process.env.BASE_URL
+					// #endif
+					// #ifdef VUE3
+					const baseUrl = import.meta.env.BASE_URL
+					// #endif
 
-            let redirectUrl = location.protocol +
-                '//' +
-                location.host +
-                baseUrl.replace(/\/$/, '') +
-                (window.location.href.includes('#')?'/#':'') +
-                '/uni_modules/uni-id-pages/pages/login/login-withoutpwd?is_weixin_redirect=true&type=weixin'
+					let redirectUrl = location.protocol +
+						'//' +
+						location.host +
+						baseUrl.replace(/\/$/, '') +
+						(window.location.href.includes('#') ? '/#' : '') +
+						'/uni_modules/uni-id-pages/pages/login/login-withoutpwd?is_weixin_redirect=true&type=weixin'
 
-						// console.log('redirectUrl----',redirectUrl);
-						let ua = window.navigator.userAgent.toLowerCase();
-						if (ua.match(/MicroMessenger/i) == 'micromessenger'){
-							// console.log('在微信公众号内');
-							return window.open(`https://open.weixin.qq.com/connect/oauth2/authorize?
+					// console.log('redirectUrl----',redirectUrl);
+					let ua = window.navigator.userAgent.toLowerCase();
+					if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+						return window.open(`https://open.weixin.qq.com/connect/oauth2/authorize?
 										appid=${config.appid.weixin.h5}
 										&redirect_uri=${encodeURIComponent(redirectUrl)}
 										&response_type=code
 										&scope=snsapi_userinfo
 										&state=STATE&connect_redirect=1#wechat_redirect`);
 
-						}else{
-							// console.log('非微信公众号内');
-							return location.href = `https://open.weixin.qq.com/connect/qrconnect?appid=${config.appid.weixin.web}
+					} else {
+						return location.href = `https://open.weixin.qq.com/connect/qrconnect?appid=${config.appid.weixin.web}
 											&redirect_uri=${encodeURIComponent(redirectUrl)}
 											&response_type=code&scope=snsapi_login&state=STATE#wechat_redirect`
-						}
 					}
+				}
 				// #endif
-				console.log('login ----')
 				uni.showLoading({
 					// #ifdef MP-HARMONY
 					title: "正在登录",
@@ -369,7 +357,6 @@
 					let univerifyManager = uni.getUniverifyManager()
 					let clickAnotherButtons = false
 					let onButtonsClickFn = async res => {
-						console.log('点击了第三方登录，provider：', res, res.provider, this.univerifyStyle.buttons.list);
 						clickAnotherButtons = true
 						let checkBoxState = await uni.getCheckBoxState();
 						// 同步一键登录弹出层隐私协议框是否打勾
@@ -383,10 +370,11 @@
 							path
 						} = this.univerifyStyle.buttons.list[res.index]
 						if (path) {
-							if( this.getRoute(1).includes('login-withoutpwd') && path.includes('login-withoutpwd') ){
+							if (this.getRoute(1).includes('login-withoutpwd') && path.includes(
+									'login-withoutpwd')) {
 								this.getParentComponent().showCurrentWebview()
 							}
-							this.toPage(path,1)
+							this.toPage(path, 1)
 							closeUniverify()
 						} else {
 							if (this.agree) {
@@ -420,7 +408,7 @@
 						},
 						fail(err) {
 							console.log(err)
-							if(!clickAnotherButtons){
+							if (!clickAnotherButtons) {
 								uni.navigateBack()
 							}
 							// uni.showToast({
@@ -476,37 +464,35 @@
 				})
 			},
 			login(params, type) { //联网验证登录
-				// console.log('执行登录开始----');
-				console.log({params,type});
 				//toLowerCase
 				let action = 'loginBy' + type.trim().replace(type[0], type[0].toUpperCase())
-				const uniIdCo = uniCloud.importObject("uni-id-co",{
-					customUI:true
+				const uniIdCo = uniCloud.importObject("uni-id-co", {
+					customUI: true
 				})
 				uniIdCo[action](params).then(result => {
-					uni.showToast({
-						title: '登录成功',
-						icon: 'none',
-						duration: 2000
-					});
-					// #ifdef H5
-					result.loginType = type
-					// #endif
-					mutations.loginSuccess(result)
-				})
-				.catch(e=>{
-					uni.showModal({
-						content: e.message,
-						confirmText:"知道了",
-						showCancel: false
-					});
-				})
-				.finally(e => {
-					if (type == 'univerify') {
-						uni.closeAuthView()
-					}
-					uni.hideLoading()
-				})
+						uni.showToast({
+							title: '登录成功',
+							icon: 'none',
+							duration: 2000
+						});
+						// #ifdef H5
+						result.loginType = type
+						// #endif
+						mutations.loginSuccess(result)
+					})
+					.catch(e => {
+						uni.showModal({
+							content: e.message,
+							confirmText: "知道了",
+							showCancel: false
+						});
+					})
+					.finally(e => {
+						if (type == 'univerify') {
+							uni.closeAuthView()
+						}
+						uni.hideLoading()
+					})
 			},
 			async getUserInfo(e) {
 				return new Promise((resolve, reject) => {
@@ -538,6 +524,7 @@
 		flex-direction: column;
 		z-index: 1;
 	}
+
 	/* #endif */
 
 	.fab-login-box {
@@ -563,6 +550,7 @@
 			max-width: 500px;
 			margin-left: calc(50% - 250px);
 		}
+
 		.item {
 			height: 160rpx;
 		}

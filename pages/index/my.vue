@@ -77,10 +77,10 @@
 				<text class="feature-text">一键清库</text>
 			</view>
 
-			<view class="feature-item" @click="gotoPayUrl">
+			<!-- <view class="feature-item" @click="gotoPayUrl">
 				<image class="feature-icon" src="/static/icons/star.svg" mode="aspectFit"></image>
 				<text class="feature-text">支持作者</text>
-			</view>
+			</view> -->
 
 			<!-- <view class="feature-item" @click="cancelUser">
 				<image class="feature-icon" src="/static/icons/delete.svg" mode="aspectFit"></image>
@@ -188,7 +188,6 @@
 				return store.hasLogin
 			},
 			hasUsername() {
-				console.log(store)
 				return store.userInfo.username
 			}
 		},
@@ -361,9 +360,7 @@
 			},
 
 			showNicknameInput() {
-				console.log(this.userInfo.nickname)
 				if (typeof this.userInfo.nickname === 'undefined') {
-					console.log(this.userInfo.nickname)
 					this.gotoLogin()
 					return
 				}
@@ -392,7 +389,6 @@
 						uni.showLoading({
 							title: '上传中...'
 						})
-						console.log(tempFilePath)
 						try {
 							// 上传图片到云存储
 							const uploadRes = await uniCloud.uploadFile({
@@ -453,10 +449,7 @@
 					})
 					return
 				}
-
 				try {
-
-					console.log(this.userInfo._id)
 					await db.collection('uni-id-users').where('_id==$env.uid').update({
 						nickname: this.newNickname
 					})
@@ -552,7 +545,6 @@
 					// 检查名字是否有空
 					const hasEmptyName = jsonData.some(row => {
 						const name = String(row[1] || '');
-						console.log(!name || name.trim() === '')
 						return !name || name.trim() === '';
 					});
 					if (hasEmptyName) {
@@ -632,9 +624,6 @@
 						});
 						return;
 					}
-
-					console.log(jsonData)
-
 					jsonData.forEach(row => {
 						row[2] = Number(row[2]);
 
@@ -653,8 +642,6 @@
 							}
 						});
 					});
-					console.log(jsonData)
-
 					// 分批导入数据
 					const batchSize = 200;
 					const batches = [];
@@ -701,13 +688,9 @@
 							icon: 'none',
 							duration: 2000
 						});
-						console.log(jsonData)
-
 					}
 
-				} catch (error) {
-					console.log(error)
-				}
+				} catch (error) {}
 			},
 
 
@@ -788,7 +771,6 @@
 					})
 					return
 				} else if (!regex.test(this.mobile)) {
-					console.log(this.mobile);
 					uni.showToast({
 						title: '请输入有效的手机号',
 						icon: 'none'
@@ -803,16 +785,12 @@
 						mobile: this.mobile,
 						create_date: Date.now()
 					})
-
-					console.log(res)
-
 					this.closeFeedbackPopup()
 					uni.showToast({
 						title: '反馈提交成功',
 						icon: 'success'
 					})
 				} catch (e) {
-					console.log(e)
 					uni.showToast({
 						title: '提交失败',
 						icon: 'error'

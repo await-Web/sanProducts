@@ -1,5 +1,6 @@
 <template>
-	<button open-type="chooseAvatar" @chooseavatar="bindchooseavatar" @click="uploadAvatarImg" class="box" :class="{'showBorder':border}"  :style="{width,height,lineHeight:height}">
+	<button open-type="chooseAvatar" @chooseavatar="bindchooseavatar" @click="uploadAvatarImg" class="box"
+		:class="{'showBorder':border}" :style="{width,height,lineHeight:height}">
 		<cloud-image v-if="avatar_file" :src="avatar_file.url" :width="width" :height="height"></cloud-image>
 		<uni-icons v-else :style="{width,height,lineHeight:height}" class="chooseAvatar" type="plusempty" size="30"
 			color="#dddddd"></uni-icons>
@@ -12,11 +13,11 @@
 		mutations
 	} from '@/uni_modules/uni-id-pages/common/store.js'
 	/**
-	* uni-id-pages-avatar 
-	* @description 用户头像组件
-	* @property {String} width	图片的宽，默认为：50px
-	* @property {String} height	图片的高，默认为：50px
-	*/
+	 * uni-id-pages-avatar 
+	 * @description 用户头像组件
+	 * @property {String} width	图片的宽，默认为：50px
+	 * @property {String} height	图片的高，默认为：50px
+	 */
 	export default {
 		data() {
 			return {
@@ -38,7 +39,7 @@
 					return "50px"
 				}
 			},
-			border:{
+			border: {
 				type: Boolean,
 				default () {
 					return false
@@ -64,19 +65,21 @@
 		methods: {
 			setAvatarFile(avatar_file) {
 				// 使用 clientDB 提交数据
-				mutations.updateUserInfo({avatar_file})
+				mutations.updateUserInfo({
+					avatar_file
+				})
 			},
-			async bindchooseavatar(res){
+			async bindchooseavatar(res) {
 				let avatarUrl = res.detail.avatarUrl
 				let avatar_file = {
 					extname: avatarUrl.split('.')[avatarUrl.split('.').length - 1],
-					name:'',
-					url:''
+					name: '',
+					url: ''
 				}
 				//上传到服务器
 				let cloudPath = this.userInfo._id + '' + Date.now()
 				avatar_file.name = cloudPath
-				try{
+				try {
 					uni.showLoading({
 						title: "更新中",
 						mask: true
@@ -84,27 +87,26 @@
 					let {
 						fileID
 					} = await uniCloud.uploadFile({
-						filePath:avatarUrl,
+						filePath: avatarUrl,
 						cloudPath,
 						fileType: "image"
 					});
 					avatar_file.url = fileID
 					uni.hideLoading()
-				}catch(e){
+				} catch (e) {
 					console.error(e);
 				}
-				console.log('avatar_file',avatar_file);
 				this.setAvatarFile(avatar_file)
 			},
 			uploadAvatarImg(res) {
 				// #ifdef MP-WEIXIN
 				return false // 微信小程序走 bindchooseavatar方法
 				// #endif
-				
+
 				// #ifndef MP-WEIXIN
-				if(!this.hasLogin){
+				if (!this.hasLogin) {
 					return uni.navigateTo({
-						url:'/uni_modules/uni-id-pages/pages/login/login-withoutpwd'
+						url: '/uni_modules/uni-id-pages/pages/login/login-withoutpwd'
 					})
 				}
 				const crop = {
@@ -127,7 +129,7 @@
 								// #endif
 							},
 							filePath = res.tempFilePaths[0]
-							
+
 						//非app端剪裁头像，app端用内置的原生裁剪
 						// #ifdef H5
 						if (!this.isPC) {
@@ -141,14 +143,12 @@
 											callback(url)
 										}
 									},
-									complete(e) {
-										console.log(e);
-									}
+									complete(e) {}
 								});
 							})
 						}
 						// #endif
-						
+
 						let cloudPath = this.userInfo._id + '' + Date.now()
 						avatar_file.name = cloudPath
 						uni.showLoading({
@@ -175,14 +175,15 @@
 
 <style>
 	/* #ifndef APP-NVUE */
-	.box{
+	.box {
 		overflow: hidden;
 	}
+
 	/* #endif */
-	.box{
+	.box {
 		padding: 0;
 	}
-	
+
 	.chooseAvatar {
 		/* #ifndef APP-NVUE */
 		display: inline-block;
@@ -192,7 +193,8 @@
 		text-align: center;
 		padding: 1px;
 	}
-	.showBorder{
+
+	.showBorder {
 		border: solid 1px #ddd;
 	}
 </style>

@@ -12,14 +12,13 @@ export default {
 			},
 			{
 				validateFunction: function(rule, value, data, callback) {
-					// console.log(value);
 					if (/^1\d{10}$/.test(value) || /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test(value)) {
 						callback('用户名不能是：手机号或邮箱')
 					};
 					if (/^\d+$/.test(value)) {
 						callback('用户名不能为纯数字')
 					};
-					if(/[\u4E00-\u9FA5\uF900-\uFA2D]{1,}/.test(value)){
+					if (/[\u4E00-\u9FA5\uF900-\uFA2D]{1,}/.test(value)) {
 						callback('用户名不能包含中文')
 					}
 					return true
@@ -36,14 +35,13 @@ export default {
 			},
 			{
 				validateFunction: function(rule, value, data, callback) {
-					// console.log(value);
 					if (/^1\d{10}$/.test(value) || /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test(value)) {
 						callback('昵称不能是：手机号或邮箱')
 					};
 					if (/^\d+$/.test(value)) {
 						callback('昵称不能为纯数字')
 					};
-					if(/[\u4E00-\u9FA5\uF900-\uFA2D]{1,}/.test(value)){
+					if (/[\u4E00-\u9FA5\uF900-\uFA2D]{1,}/.test(value)) {
 						callback('昵称不能包含中文')
 					}
 					return true

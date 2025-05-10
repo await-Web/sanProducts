@@ -111,7 +111,6 @@
 		},
 		methods: {
 			sendGoodsInfo(res) {
-				// console.log('res',res)
 				const existingItem = this.goodsList.find(item => item._id === res._id)
 				if (existingItem) {
 					const index = this.goodsList.indexOf(existingItem)
@@ -124,7 +123,6 @@
 					quantity: 1,
 					isNew: true
 				})
-				// console.log(this.goodsList)
 				setTimeout(() => this.goodsList[0].isNew = false, 500)
 			},
 
@@ -168,9 +166,6 @@
 						this.scanning = false
 						return
 					}
-					// console.log('this.list', this.goodsList)
-
-
 					const res = await goodsInfoObj.findGoods(code)
 					if (res.code === 0) {
 						const goods = res.data
@@ -179,7 +174,6 @@
 							quantity: 1,
 							isNew: true
 						})
-						console.log(this.goodsList)
 						setTimeout(() => this.goodsList[0].isNew = false, 500)
 					} else if (res.code === -1) {
 						setTimeout(() => {
@@ -242,7 +236,6 @@
 					goods_num: item.goods_num >= 0 ? item.goods_num : '',
 					goods_quantity: item.quantity
 				}))
-				// console.log('outGoodsList', outGoodsList)
 				const res = await goodsInfoObj.outGoods(outGoodsList)
 				if (res.code === -1) {
 					this.showConfirmPopup = false
@@ -280,9 +273,7 @@
 							confirmText: '知道了'
 						})
 					}
-				} else {
-					console.log(res)
-				}
+				} else {}
 			}
 		},
 		onShow() {

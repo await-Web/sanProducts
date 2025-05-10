@@ -24,28 +24,29 @@
 		},
 		methods: {
 			async beforeGetphonenumber() {
-				return await new Promise((resolve,reject)=>{
-					uni.showLoading({ mask: true })
+				return await new Promise((resolve, reject) => {
+					uni.showLoading({
+						mask: true
+					})
 					wx.checkSession({
 						success() {
-							// console.log('session_key 未过期');
 							resolve()
 							uni.hideLoading()
 						},
 						fail() {
-							// console.log('session_key 已经失效，正在执行更新');
 							wx.login({
 								success({
 									code
 								}) {
-									uniCloud.importObject("uni-id-co",{
-										customUI:true
-									}).loginByWeixin({code}).then(e=>{
+									uniCloud.importObject("uni-id-co", {
+										customUI: true
+									}).loginByWeixin({
+										code
+									}).then(e => {
 										resolve()
-									}).catch(e=>{
-										console.log(e);
+									}).catch(e => {
 										reject()
-									}).finally(e=>{
+									}).finally(e => {
 										uni.hideLoading()
 									})
 								},
@@ -83,6 +84,7 @@
 
 <style lang="scss" scoped>
 	@import "@/uni_modules/uni-id-pages/common/login-page.scss";
+
 	view {
 		display: flex;
 	}
@@ -152,8 +154,9 @@
 	.agree::after {
 		border: none;
 	}
+
 	/* #endif */
-	
+
 	.agree:active {
 		background-color: #F5F5F6;
 	}

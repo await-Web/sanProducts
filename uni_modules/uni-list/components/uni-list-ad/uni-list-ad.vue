@@ -1,13 +1,13 @@
 <template>
 	<!-- #ifdef APP-NVUE -->
 	<cell>
-		<!-- #endif -->
+	<!-- #endif -->
 		<view class="uni-list-ad">
 			<view v-if="borderShow" :class="{'uni-list--border':border,'uni-list-item--first':isFirstChild}"></view>
-			<ad style="width: 200px;height: 300px;border-width: 1px;border-color: red;border-style: solid;" adpid="1111111111"
-			 unit-id="" appid="" apid="" type="feed" @error="aderror" @close="closeAd"></ad>
+			<ad style="width: 200px;height: 300px;border-width: 1px;border-color: red;border-style: solid;"
+				adpid="1111111111" unit-id="" appid="" apid="" type="feed" @error="aderror" @close="closeAd"></ad>
 		</view>
-		<!-- #ifdef APP-NVUE -->
+	<!-- #ifdef APP-NVUE -->
 	</cell>
 	<!-- #endif -->
 
@@ -59,9 +59,7 @@
 				}
 				return parent;
 			},
-			aderror(e) {
-				console.log("aderror: " + JSON.stringify(e.detail));
-			},
+			aderror(e) {},
 			closeAd(e) {
 				this.borderShow = false
 			}
@@ -69,7 +67,7 @@
 	}
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 	.uni-list-ad {
 		position: relative;
 		border: 1px red solid;
