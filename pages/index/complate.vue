@@ -92,7 +92,8 @@
 		},
 		computed: {
 			totalPrice() {
-				return (this.goodsList.reduce((total, item) => total + (item.goods_price * 100 * item.quantity), 0) / 100).toFixed(2)
+				return (this.goodsList.reduce((total, item) => total + (item.goods_price * 100 * item.quantity), 0) / 100)
+					.toFixed(2)
 			},
 			totalNum() {
 				return this.goodsList.reduce((total, item) => total + (item.quantity), 0)
@@ -100,7 +101,7 @@
 			totalProfit() {
 				const profit = this.goodsList.reduce((total, item) => {
 					let itemProfit = 0
-					if(item.goods_cost > 0){
+					if (item.goods_cost > 0) {
 						itemProfit = ((item.goods_price * 100 - item.goods_cost * 100) * item.quantity)
 					}
 					return total + itemProfit
@@ -168,7 +169,7 @@
 						return
 					}
 					// console.log('this.list', this.goodsList)
-					
+
 
 					const res = await goodsInfoObj.findGoods(code)
 					if (res.code === 0) {
@@ -288,7 +289,7 @@
 			if (this.$refs.cameraRef) {
 				this.$refs.cameraRef.start()
 			}
-			
+
 		},
 		onHide() {
 			if (this.$refs.cameraRef) {
@@ -397,12 +398,12 @@
 	}
 
 	.active-scale {
-        transition: transform 0.1s ease;
-    }
-    
-    .active-scale:active {
-        transform: scale(0.9);
-    }
+		transition: transform 0.1s ease;
+	}
+
+	.active-scale:active {
+		transform: scale(0.9);
+	}
 
 	.clear-btn {
 		display: flex;
